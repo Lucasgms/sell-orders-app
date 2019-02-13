@@ -1,0 +1,25 @@
+version: '2'
+services:
+  app:
+    container_name: sell_oders_app
+    build: .
+    ports:
+      - 5000:5000
+    links:
+      - db:mysql-host
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+  db:
+    container_name: sell_oders_db
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=app1234
+      - MYSQL_DATABASE=app
+      - MYSQL_USER=app_user
+      - MYSQL_PASSWORD=user1234
+    volumes:
+      - ./vol-mysql-data:/var/lib/mysql
+    ports:
+      - 3306:3306/tcp
