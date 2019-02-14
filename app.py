@@ -5,9 +5,13 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
 app = Flask(__name__)
-app.config.from_object(os.getenv('APP_SETTINGS'))
+app.config.from_object(os.getenv('APP_SETINGS'))
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+
+from models.product import Product
+from models.user import User
+from models.sell_order import SellOrder
 
 
 @app.route('/')
