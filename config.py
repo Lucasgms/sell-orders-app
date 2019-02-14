@@ -10,7 +10,6 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     DEVELOPMENT = False
     ENV = 'development'
-    print(os.environ.get('DATABASE_URL'))
 
 
 class ProductionConfig(Config):
