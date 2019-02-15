@@ -11,7 +11,7 @@ class SellOrder(db.Model):
     profitability = db.Column(db.String(50))
 
     def __init__(self, client, product, product_amount, price, id=None):
-        self.id = id
+        # self.id = id
         self.client = client
         self.product = product
         self.product_amount = product_amount
