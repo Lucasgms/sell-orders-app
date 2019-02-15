@@ -10,9 +10,10 @@ services:
     volumes:
       - .:/app
     depends_on:
-      - db
+      - "db"
     env_file:
       - .env
+    command: ["./config/init.sh", "db:3306", "--", "python", "app.py"]
   db:
     container_name: sell_oders_db
     image: mysql:5.7

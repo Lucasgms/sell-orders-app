@@ -16,4 +16,4 @@ RUN pip install --trusted-host pypi.python.org -r requirements.txt
 EXPOSE 5000
 
 # Run app.py when the container launches
-CMD ./config/init.sh
+#CMD ./config/init.sh
