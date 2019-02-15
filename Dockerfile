@@ -1,6 +1,8 @@
 # Use an official Python runtime as a parent image
 FROM python:3.7.2-slim
 
+RUN apt-get update && apt-get install -y python3-dev default-libmysqlclient-dev gcc
+
 # Set the working directory to /app
 WORKDIR /app
 
@@ -14,4 +16,4 @@ RUN pip install --trusted-host pypi.python.org -r requirements.txt
 EXPOSE 5000
 
 # Run app.py when the container launches
-CMD ["python", "app.py"]
+CMD ./config/init.sh

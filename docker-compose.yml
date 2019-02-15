@@ -15,7 +15,7 @@ services:
       - .env
   db:
     container_name: sell_oders_db
-    image: mysql
+    image: mysql:5.7
     environment:
       - MYSQL_ROOT_PASSWORD=app1234
       - MYSQL_DATABASE=app
@@ -23,5 +23,6 @@ services:
       - MYSQL_PASSWORD=user1234
     volumes:
       - ./vol-mysql-data:/var/lib/mysql
+      - ./config/mycustom.cnf:/etc/mysql/conf.d/custom.cnf
     ports:
       - 3306:3306/tcp
