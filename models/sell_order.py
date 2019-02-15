@@ -16,17 +16,14 @@ class SellOrder(db.Model):
         self.product = product
         self.product_amount = product_amount
         self.price = price
-        self.__set_profitability()
+        self.set_profitability()
 
-    def __set_profitability(self):
-        price_range = (self.price / self.product.unit_price) * 100
-        price_range_start = self.product.unit_price - (self.product.unit_price / 10) * 100
-        price_range_end = self.product.unit_price + (self.product.unit_price / 10) * 100
+    def set_profitability(self):
+        price_range_start = self.product.unit_price - self.product.unit_price / 10
 
         if self.price > self.product.unit_price:
-            self.__profitability = 'Ótima'
-        elif price_range in range(price_range_start, price_range_end):
-            self.__profitability = 'Boa'
+            self.profitability = 'Ótima'
+        elif self.price >= price_range_start:
+            self.profitability = 'Boa'
         else:
-            self.__profitability = 'Ruim'
-
+            self.profitability = 'Ruim'
