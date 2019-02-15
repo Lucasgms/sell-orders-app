@@ -23,5 +23,6 @@ services:
       - MYSQL_PASSWORD=user1234
     volumes:
       - ./vol-mysql-data:/var/lib/mysql
+      - ./config/mycustom.cnf:/etc/mysql/conf.d/custom.cnf
     ports:
       - 3306:3306/tcp
