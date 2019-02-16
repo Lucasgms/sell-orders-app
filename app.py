@@ -21,7 +21,7 @@ def index():
     return render_template('list.html', title="Ordens de compra", orders=sell_orders)
 
 
-@app.route('/new')
+@app.route('/order/new')
 def new_order():
     users = User.query.all()
     products = Product.query.all()
@@ -29,7 +29,7 @@ def new_order():
     return render_template('new.html', title="Nova ordem de compra", clients=users, products=products)
 
 
-@app.route('/create', methods=['POST'])
+@app.route('/order/create', methods=['POST'])
 def create_order():
     client = User.query.filter_by(id=request.form['client']).first()
     product = Product.query.filter_by(id=request.form['product']).first()
@@ -46,13 +46,23 @@ def create_order():
     return redirect(url_for('index'))
 
 
-@app.route('/product/<id>', methods=['GET'])
+@app.route('/order/edit/<id>')
+def edit_order(id):
+    pass
+
+
+@app.route('/order/delete/<id>')
+def delete_order(id):
+    pass
+
+
+@app.route('/product/<id>')
 def get_product(id):
     product = Product.query.filter_by(id=id).first()
     return product.serialize()
 
 
-@app.route('/user/<id>', methods=['GET'])
+@app.route('/user/<id>')
 def get_user(id):
     user = User.query.filter_by(id=id).first()
     return user.serialize()
