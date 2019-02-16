@@ -37,10 +37,9 @@ def create_order():
     price = float(request.form['price'])
     order = SellOrder(client, product, amount, price)
     client.purchases.append(order)
-    product.sell_orders.append(order)
+    product.orders.append(order)
     db.session.add(client)
     db.session.add(product)
-    db.session.add(order)
     db.session.commit()
 
     flash('Ordem de venda cadastrada com sucesso!')

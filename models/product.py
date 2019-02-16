@@ -7,7 +7,6 @@ class Product(db.Model):
     name = db.Column(db.String(120), nullable=False)
     unit_price = db.Column(db.Float(2), nullable=False)
     multiplier = db.Column(db.Integer)
-    sell_orders = db.relationship('SellOrder', backref='product', lazy=True)
 
     def __init__(self, name, unit_price, multiplier=1, id=None):
         # self.id = id
@@ -21,7 +20,7 @@ class Product(db.Model):
             'name': self.name,
             'unit_price': self.unit_price,
             'multiplier': self.multiplier,
-            'sell_orders': self.sell_orders
+            'sell_orders': self.orders
         }
 
         return jsonify(product_serialized)

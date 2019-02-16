@@ -4,8 +4,10 @@ from app import db
 class SellOrder(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
-    client = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    product = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
+    client_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    client = db.relationship('User', backref=db.backref('purchases', lazy=True))
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
+    product = db.relationship('Product', backref=db.backref('orders', lazy=True))
     product_amount = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Float(2), nullable=False)
     profitability = db.Column(db.String(50))
