@@ -3,6 +3,7 @@
 
     $("select[name='product']").on("change", function () {
         let productId = $(this).val();
+        $("#amount").attr("disabled", true);
         $.ajax({
             method: 'get',
             url: '/product/' + productId,
@@ -23,17 +24,26 @@
         }
     });
 
+    $("form[action='/order/new']").before("submit", function(e) {
+        event.preventDefault();
+       console.log('ta querendo enviar');
+    });
+
     function setItemAmount(multiplier) {
         const $amountInput = $("#amount");
         const $amountAddon = $("#amount-addon");
         const amountValue = $amountInput.val() || null;
+
+        console.log(amountValue);
         if (amountValue) {
             if (amountValue < multiplier || (amountValue % multiplier != 0)) {
                 $amountInput.val(multiplier);
             }
         }
+
         $amountAddon.html("Multiplicador: " + multiplier);
-        $amountInput.attr({"min": multiplier, "disabled": false, "data-multiplier": multiplier});
+        $amountInput.data("multiplier", multiplier)
+        $amountInput.attr({"min": multiplier, "disabled": false });
     }
 
     function setItemPriceSugestion(price) {
@@ -44,6 +54,5 @@
             $priceInput.attr("disabled", false);
         }
     }
-
 
 })(jQuery)

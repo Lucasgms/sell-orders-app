@@ -19,8 +19,7 @@ class Product(db.Model):
             'id': self.id,
             'name': self.name,
             'unit_price': self.unit_price,
-            'multiplier': self.multiplier,
-            'sell_orders': self.orders
+            'multiplier': self.multiplier
         }
 
         return jsonify(product_serialized)
