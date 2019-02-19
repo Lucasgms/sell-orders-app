@@ -30,7 +30,7 @@
         const amountValue = $amountInput.val() || null;
 
         if (amountValue) {
-            if (amountValue < multiplier || (amountValue % multiplier != 0)) {
+            if (amountValue < multiplier || (amountValue % multiplier !== 0)) {
                 $amountInput.val(multiplier);
             }
         }
