@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='normalize.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
     <title>Sell Orders App</title>
 </head>
 <body>
+{% include "navbar.html" %}
 <div class="container">
     {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -20,18 +22,26 @@
         {% endif %}
     {% endwith %}
 
-
-    <div class="page-header">
-        <h1>{{ title }}</h1>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="page-header">
+                <h1>{{ title }}</h1>
+            </div>
+        </div>
+        <div class="row">
+                {% block content %}{% endblock %}
+        </div>
     </div>
-
-    {% block content %}{% endblock %}
 </div>
 
 <script
-  src="https://code.jquery.com/jquery-2.2.4.min.js"
-  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-  crossorigin="anonymous"></script>
+        src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
 </body>
 </html>

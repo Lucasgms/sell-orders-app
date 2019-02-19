@@ -18,7 +18,7 @@ from models.sell_order import *
 @app.route('/')
 def index():
     sell_orders = SellOrder.query.all()
-    return render_template('list.html', title="Ordens de compra", orders=sell_orders)
+    return render_template('list.html', title="Pedidos", orders=sell_orders)
 
 
 @app.route('/order/new')
@@ -26,7 +26,7 @@ def new_order():
     users = User.query.all()
     products = Product.query.all()
 
-    return render_template('new.html', title="Nova ordem de compra", clients=users, products=products)
+    return render_template('new.html', title="Novo Pedido", clients=users, products=products)
 
 
 @app.route('/order/save', methods=['POST'])
@@ -53,7 +53,7 @@ def save_order():
     db.session.commit()
     db.session.flush()
 
-    flash('Ordem de venda cadastrada com sucesso!')
+    flash('Pedido cadastrado com sucesso!')
     return redirect(url_for('index'))
 
 
@@ -63,7 +63,7 @@ def edit_order(id):
     products = Product.query.all()
     sell_order = SellOrder.query.get(id)
 
-    return render_template('new.html', title="Editar ordem de compra", clients=users, products=products, sell_order=sell_order)
+    return render_template('new.html', title="Editar pedido", clients=users, products=products, sell_order=sell_order)
 
 
 @app.route('/order/delete/<id>')
@@ -72,7 +72,7 @@ def delete_order(id):
     db.session.delete(sell_order)
     db.session.commit()
 
-    flash('Ordem de venda excluída com sucesso!')
+    flash('Pedido excluído com sucesso!')
     return redirect(url_for('index'))
 
 

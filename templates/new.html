@@ -1,6 +1,6 @@
 {% extends "template.html" %}
 {% block content %}
-    <form action="{{ url_for('save_order') }}" method="post" class="form">
+    <form action="{{ url_for('save_order') }}" method="post" class="form col-md-12">
         {% if sell_order %}
             <input type="hidden" name="id" id="id" value="{{ sell_order.id }}">
         {% endif %}
