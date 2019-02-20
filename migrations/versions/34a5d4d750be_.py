@@ -1,20 +1,19 @@
-# -*- coding: utf-8 -*-
 """empty message
 
-Revision ID: eb57c1809a1b
-Revises: 33b67525b8b5
-Create Date: 2019-02-15 02:29:18.277849
+Revision ID: 34a5d4d750be
+Revises: 23bc5b158d77
+Create Date: 2019-02-16 17:09:30.332722
 
 """
 from alembic import op
+import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-from sqlalchemy import table, column
-from sqlalchemy import String, Integer
+from sqlalchemy import table, column, Integer, String
 
-revision = 'eb57c1809a1b'
-down_revision = '33b67525b8b5'
+revision = '34a5d4d750be'
+down_revision = '23bc5b158d77'
 branch_labels = None
 depends_on = None
 
@@ -22,16 +21,16 @@ depends_on = None
 def upgrade():
     user_table = table('user',
                        column('id', Integer),
-                       column('name', String)
+                       column('name', String),
                        )
     op.bulk_insert(
         user_table,
         [
-            {'id': 1, 'name': 'Darth Vader'},
-            {'id': 2, 'name': 'Obi-Wan Kenoby'},
+            {'id': 1, 'name': 'Darth​ ​Vader'},
+            {'id': 2, 'name': 'Obi-Wan​ ​Kenobi'},
             {'id': 3, 'name': 'Luke​ ​Skywalker'},
             {'id': 4, 'name': 'Imperador​ ​Palpatine'},
-            {'id': 5, 'name': 'Han​ ​Solo'}
+            {'id': 5, 'name': 'Han​ ​Solo'},
         ]
     )
 

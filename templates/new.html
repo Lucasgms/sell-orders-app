@@ -1,0 +1,72 @@
+{% extends "template.html" %}
+{% block content %}
+    <form action="{{ url_for('save_order') }}" method="post" class="form col-md-12">
+        {% if sell_order %}
+            <input type="hidden" name="id" id="id" value="{{ sell_order.id }}">
+        {% endif %}
+        <fieldset class="form-group">
+            <label for="client">Cliente:</label>
+            <div class="input-group col-md-12">
+                <select name="client" id="client" class="form-control" required>
+                    <option value="" selected disabled>Selecione o cliente</option>
+                    {% for client in clients %}
+                        <option value="{{ client.id }}"
+                                {% if sell_order is defined
+                                and sell_order.client.id == client.id %}selected{% endif %}>
+                            {{ client.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </fieldset>
+        <fieldset class="form-group">
+            <label for="product">Produto</label>
+            <div class="input-group col-md-12">
+                <select name="product" id="product" class="form-control" required>
+                    <option value="" selected disabled>Selecione o produto</option>
+                    {% for product in products %}
+                        <option value="{{ product.id }}"
+                                {% if sell_order is defined and sell_order.product.id == product.id %}selected{% endif %}>
+                            {{ product.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </fieldset>
+        <fieldset class="form-group">
+            <label for="amount">Quantidade</label>
+            <div class="input-group col-md-12">
+                {% set multiplier = 1 if sell_order is not defined else sell_order.product.multiplier %}
+                <span class="input-group-addon" id="amount-addon">
+                    Multiplicador: {{ '?' if sell_order is not defined else sell_order.product.multiplier }}
+                </span>
+                <input type="number" id="amount" name="amount" class="form-control"
+                       aria-describedby="amount-addon"
+                       min="{{ multiplier }}"
+                       data-multiplier="{{ multiplier }}"
+                       step="{{ multiplier }}"
+                        {% if sell_order is defined %} value="{{ sell_order.product_amount }}"
+                       {% else %}disabled{% endif %}
+                       required>
+            </div>
+            <small>
+                <i class="glyphicon glyphicon-info-sign"></i>
+                A quantidade deverá ser um valor múltiplo do multiplicador.
+            </small>
+        </fieldset>
+        <fieldset class="form-group">
+            <label for="price">Preço</label>
+            <div class="input-group col-md-12">
+                <input type="text" id="price" name="price" min="0" class="form-control"
+                       {% if sell_order is defined %}value="{{ sell_order.price }}"{% else %}disabled{% endif %}
+                       required>
+            </div>
+            <small><i class="glyphicon glyphicon-info-sign"></i> O preço definido pode afetar a rentabilidade da venda.
+            </small>
+        </fieldset>
+        <fieldset class="col-md-12 text-right">
+            <a class="btn btn-danger" href="{{ url_for('index') }}">Cancelar</a>
+            <button type="submit" class="btn btn-primary btn-salvar">Salvar</button>
+        </fieldset>
+    </form>
+{% endblock %}

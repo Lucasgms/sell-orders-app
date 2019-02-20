@@ -1,22 +1,36 @@
+from flask import jsonify
 from app import db
 
 
 class SellOrder(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
-    client = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    product = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
+    client_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    client = db.relationship('User', backref=db.backref('purchases', lazy=True))
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
+    product = db.relationship('Product', backref=db.backref('orders', lazy=True))
     product_amount = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Float(2), nullable=False)
     profitability = db.Column(db.String(50))
 
     def __init__(self, client, product, product_amount, price, id=None):
-        self.id = id
+        # self.id = id
         self.client = client
         self.product = product
         self.product_amount = product_amount
         self.price = price
         self.set_profitability()
+
+    def serialize(self):
+        sell_order_serialized = {
+            "client": self.client_id,
+            "product": self.product_id,
+            "product_amount": self.product_amount,
+            "price": self.price,
+            "profitability": self.profitability
+        }
+
+        return jsonify(sell_order_serialized)
 
     def set_profitability(self):
         price_range_start = self.product.unit_price - self.product.unit_price / 10

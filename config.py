@@ -6,7 +6,7 @@ class Config(object):
     DEBUG = False
     TESTING = False
     SECRET_KEY = 'salles_orders_app'
-    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
+    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     DEVELOPMENT = False
     ENV = 'development'
